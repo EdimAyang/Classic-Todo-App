@@ -10,14 +10,14 @@ import { ToastContainer, toast } from 'react-toastify';
 const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
 
 interface ITodo{
-  TodoData:{
+  SortedData:{
     todo:string
     id:string
   }[],
   ErrMsg:string
 }
 
-const Todo:React.FC<ITodo> = ({TodoData}) => {
+const Todo:React.FC<ITodo> = ({SortedData}) => {
 //States
   const [TodoValue, setTodoValue] = useState<string>("")
 
@@ -64,7 +64,7 @@ const Todo:React.FC<ITodo> = ({TodoData}) => {
         <input type="text" value={TodoValue} placeholder='Enter TODO' onChange={e=>setTodoValue(e.target.value)}/>
         <ButtonS children='ADD!' size='20' color2='#ffff' color='#54BF36' onClick={handleAddTodo}/>
       </TodoInputWrapper>
-      <Lists List={TodoData}/>
+      <Lists List={SortedData}/>
       <ToastContainer />
     </TodoStyles>
   )

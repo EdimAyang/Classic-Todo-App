@@ -15,9 +15,10 @@ const Lists:React.FC<IList> = ({List}) => {
 
 
   //handle done Task
-  const handleDoneTask = ()=>{
-    setDoneTask(!DoneTask)
-    console.log(DoneTask)
+  const handleDoneTask = (e: React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
+   e.stopPropagation()
+      console.log(e.target)
+      setDoneTask(!DoneTask)
   }
 
   //handle deleteTodo
@@ -29,18 +30,18 @@ const Lists:React.FC<IList> = ({List}) => {
     console.log(err)
    })
   }
-console.log(List.reverse())
+
   return (
     <ListsStyled>
       {
-        List.sort().map((c)=>(
+        List.map((c, i )=>(
           <Card key={c.id}>
           <Item active={DoneTask}>{c.todo}</Item>
             <Actions active={DoneTask}>
               <img src="/src/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)}/>
-              <input type="checkbox" value={DoneTask} onClick={handleDoneTask}/>
+              <input type="checkbox" id={c.id} onClick={handleDoneTask}/>
             </Actions>
-        </Card>
+          </Card>
         ))
       }
     </ListsStyled>

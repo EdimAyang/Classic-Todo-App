@@ -27,16 +27,25 @@ const[ErrMsg, setErrMsg] = useState<string>("");
 const getTodo = ()=>{
   axios.get(URL).then((res)=>{
     setTodoData(res.data)
-    console.log(res.data)
   }).catch((err)=>{
     setErrMsg(err)
   })
 }
 
+//Reverse Array Algorithm
 
+const ReverseArray = (TodoData: ITodo[])=>{
+  let Sorted = [];
+  for(let i = TodoData.length -1; i >= 0; i--){
+    Sorted.push(TodoData[i])
+  }
+  return Sorted
+}
+const SortedData = ReverseArray(TodoData)
 useEffect(()=>{
   getTodo()
 },[])
+
 
   const Router = createBrowserRouter([
     {
@@ -51,7 +60,7 @@ useEffect(()=>{
 
     {
       path:"todo",
-      element:<Todo TodoData={TodoData} ErrMsg={ErrMsg}/>
+      element:<Todo SortedData={SortedData} ErrMsg={ErrMsg}/>
     },
 
     {

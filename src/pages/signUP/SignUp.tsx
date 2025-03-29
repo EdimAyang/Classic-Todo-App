@@ -52,6 +52,10 @@ const handleSignUp = (e:React.FormEvent<HTMLDivElement>)=>{
       }
     }
   }
+  //navigate
+  const handleNavToLogIn = ()=>{
+    navigate("/login")
+  }
   return (
     <SignUpStyles onSubmit={e =>handleSignUp(e)}>
       <SignUpForm>
@@ -64,8 +68,8 @@ const handleSignUp = (e:React.FormEvent<HTMLDivElement>)=>{
         <ButtonS  children="Sign up" size="60%"  type="submit" />
       </SignUpForm>
       <SignDiv>
-        <span onClick={handleClearUser}>forgot password</span>
-        <span>Log IN</span>
+        <span onClick={handleClearUser}>Clear profile</span>
+        <span onClick={handleNavToLogIn}>Log IN</span>
     </SignDiv>
     </SignUpStyles>
   )

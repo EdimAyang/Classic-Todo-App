@@ -46,6 +46,7 @@ const Login:React.FC = () => {
       setUserName("")
       setUserPw("")
     }
+
 //navigate user to Signup page
 const NavSignup = ()=>{
   navigate("/signUP")
@@ -65,7 +66,7 @@ const NavSignup = ()=>{
         <ButtonS  children="Log in" size="60%"  type="submit" />
       </LoginForm>
         <SignDiv>
-            <span onClick={handleClearUser}>forgot password</span>
+            <span onClick={handleClearUser}>Clear profile</span>
             <span onClick={NavSignup}>Sign up </span>
         </SignDiv>
     </LoginStyles>
