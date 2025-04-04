@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import { Actions, Card, Item, ListsStyled } from './Styled'
 import axios from 'axios'
 
@@ -11,14 +11,22 @@ interface IList {
 }
 const Lists:React.FC<IList> = ({List}) => {
   //States
-  const [DoneTask, setDoneTask] = useState<any>(false)
+  const [Color, setColor] = useState<string>("")
+  const [Check, setCheck] = useState(true)
+
+
 
 
   //handle done Task
-  const handleDoneTask = (e: React.MouseEvent<HTMLInputElement, MouseEvent>)=>{
-   e.stopPropagation()
-      console.log(e.target)
-      setDoneTask(!DoneTask)
+  const handleDoneTask = (e:React.ChangeEvent<HTMLInputElement>, i:number)=>{
+    if(Number(e.target.id) === i){
+      console.log( e.target.id)
+      localStorage.setItem(e.target.id, JSON.stringify(Check))
+      if(JSON.parse(localStorage.getItem(e.target.id) as string) === true){
+        setColor("#54BF36")
+      }
+      setCheck(!Check)
+    }
   }
 
   //handle deleteTodo
@@ -30,16 +38,16 @@ const Lists:React.FC<IList> = ({List}) => {
     console.log(err)
    })
   }
-
+console.log(List)
   return (
     <ListsStyled>
       {
         List.map((c, i )=>(
-          <Card key={c.id}>
-          <Item active={DoneTask}>{c.todo}</Item>
-            <Actions active={DoneTask}>
-              <img src="/src/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)}/>
-              <input type="checkbox" id={c.id} onClick={handleDoneTask}/>
+          <Card key={i}>
+          <Item>{c.todo}</Item>
+            <Actions color={Color}>
+              <img src="/src/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
+              <input type="checkbox" id={String(i)} onChange={(e)=>handleDoneTask(e,i)} />
             </Actions>
           </Card>
         ))

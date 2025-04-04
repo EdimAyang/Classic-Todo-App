@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface Iprops {
     active?:boolean;
+    Color?:string;
 }
 
 export const ListsStyled = styled.section`
@@ -23,7 +24,7 @@ export const Card = styled.div`
     align-items:center;
     gap:20px;
 `
-export const Item = styled.div<Iprops>`
+export const Item = styled.label`
     height:100%;
     width:80%;
     color:#1F1F1F;
@@ -32,7 +33,7 @@ export const Item = styled.div<Iprops>`
     background-color:#fff;
     align-content:center;
     overflow-y:scroll;
-    text-decoration:${({active})=>active? `${"line-through"}` : "none"};
+    
 `
 export const Actions = styled.div<Iprops>`
     height:100%;
@@ -58,7 +59,7 @@ export const Actions = styled.div<Iprops>`
         background-color:#cfcfcfcf;
     }
     input[type="checkbox"]:checked{
-        background-color:${({active})=>active? `${"#54BF36"}` : "none"};
+        background-color:${({color})=> color};
     }
     input[type="checkbox"]::before{
         content:"";
