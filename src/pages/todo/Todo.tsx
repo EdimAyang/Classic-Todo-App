@@ -59,7 +59,7 @@ const Todo:React.FC<ITodo> = ({SortedData}) => {
       <Nav>
         <span>Hello <h1>{data.name}</h1></span>
       </Nav>
-      <HeadImg src="/src/assets/To do list-bro.png" alt="" />
+      <HeadImg src="/assets/To do list-bro.png" alt="" />
       <TodoInputWrapper>
         <input type="text" value={TodoValue} placeholder='Enter TODO' onChange={e=>setTodoValue(e.target.value)}/>
         <ButtonS children='ADD!' size='20' color2='#ffff' color='#54BF36' onClick={handleAddTodo}/>

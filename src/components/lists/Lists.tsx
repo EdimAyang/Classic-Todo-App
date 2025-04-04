@@ -46,7 +46,7 @@ console.log(List)
           <Card key={i}>
           <Item>{c.todo}</Item>
             <Actions color={Color}>
-              <img src="/src/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
+              <img src="/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
               <input type="checkbox" id={String(i)} onChange={(e)=>handleDoneTask(e,i)} />
             </Actions>
           </Card>
