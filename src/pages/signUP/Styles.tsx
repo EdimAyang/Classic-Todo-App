@@ -58,7 +58,7 @@ export const SignUPInputWrapper = styled.div<Iprops>`
 export const SignDiv = styled.div`
     width:90%;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-end;
     span{
         color:#fff;
     }

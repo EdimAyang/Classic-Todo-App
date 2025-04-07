@@ -4,6 +4,7 @@ import { ButtonS } from '../../components/button/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 const SignUP = () => {
     const navigate = useNavigate()
     const [userName, setUserName] = useState<string>("");
@@ -20,21 +21,24 @@ const SignUP = () => {
    // get user name
  let data = JSON.parse(localStorage.getItem("user") as string)
 
+
+
+
+
+
+
+
     //set user details in localSate
 const handleLocalStorage = (User:object)=>{
     localStorage.setItem("user", JSON.stringify(User))
   }
-  //clear Localstorage
-  const handleClearUser =()=>{
-    localStorage.removeItem("user")
-    setUserName("")
-    setUserPw("")
-  }
+
 
   //handle inputChange validation
 const handleSignUp = (e:React.FormEvent<HTMLDivElement>)=>{
     e.preventDefault()
     if(userName === "" && userPw === "")return
+    if(data)return
     if(!data){
       for (let i = 0; i < userName.length; i++) {
         if(userName[0] == userName[0].toLocaleUpperCase() && userName.length >= 5 )
@@ -59,6 +63,7 @@ const handleSignUp = (e:React.FormEvent<HTMLDivElement>)=>{
   return (
     <SignUpStyles onSubmit={e =>handleSignUp(e)}>
       <SignUpForm>
+        {data && <h4>Profile Created</h4>}
         <h1>Sign up</h1>
         <SignUPInputWrapper state={inputSN} state2={inputSP}>
             <input type="text" name="name"  placeholder="Enter Name.." onChange={e=>setUserName(e.target.value)} required/>
@@ -68,7 +73,6 @@ const handleSignUp = (e:React.FormEvent<HTMLDivElement>)=>{
         <ButtonS  children="Sign up" size="60%"  type="submit" />
       </SignUpForm>
       <SignDiv>
-        <span onClick={handleClearUser}>Clear profile</span>
         <span onClick={handleNavToLogIn}>Log IN</span>
     </SignDiv>
     </SignUpStyles>
