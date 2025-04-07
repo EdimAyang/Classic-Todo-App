@@ -9,15 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 //url
 const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
 
-interface ITodo{
-  SortedData:{
-    todo:string
-    id:string
-  }[],
-  ErrMsg:string
-}
 
-const Todo:React.FC<ITodo> = ({SortedData}) => {
+const Todo:React.FC = () => {
 //States
   const [TodoValue, setTodoValue] = useState<string>("")
 
@@ -43,7 +36,8 @@ const Todo:React.FC<ITodo> = ({SortedData}) => {
       const newTodo = {
         todo:TodoValue
       }
-     axios.post(URL,newTodo).then(()=>{
+     axios.post(URL,newTodo).then((res)=>{
+      console.log(res.data)
       SuccessNotice()
       setTodoValue("")
       setTimeout(()=>{
@@ -54,6 +48,7 @@ const Todo:React.FC<ITodo> = ({SortedData}) => {
      })
       
     }
+    
   return (
     <TodoStyles>
       <Nav>
@@ -64,7 +59,7 @@ const Todo:React.FC<ITodo> = ({SortedData}) => {
         <input type="text" value={TodoValue} placeholder='Enter TODO' onChange={e=>setTodoValue(e.target.value)}/>
         <ButtonS children='ADD!' size='20' color2='#ffff' color='#54BF36' onClick={handleAddTodo}/>
       </TodoInputWrapper>
-      <Lists List={SortedData}/>
+      <Lists />
       <ToastContainer />
     </TodoStyles>
   )

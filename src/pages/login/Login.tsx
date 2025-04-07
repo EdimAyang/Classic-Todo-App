@@ -54,7 +54,7 @@ const NavSignup = ()=>{
 
   return (
     <LoginStyles onSubmit={e =>handleInputChange(e)} >
-      <img src="/src/assets/Login-rafiki.png" alt="" />
+      <img src="/assets/Login-rafiki.png" alt="" />
       <LoginForm>
         <h1>Log in</h1>
 

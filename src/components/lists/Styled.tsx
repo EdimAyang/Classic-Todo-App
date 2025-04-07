@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-interface Iprops {
-    active?:boolean;
-    Color?:string;
-}
+
+
+
+
 
 export const ListsStyled = styled.section`
     width:90%;
@@ -35,7 +35,7 @@ export const Item = styled.label`
     overflow-y:scroll;
     
 `
-export const Actions = styled.div<Iprops>`
+export const Actions = styled.div`
     height:100%;
     width:20%;
     display:flex;
@@ -59,7 +59,7 @@ export const Actions = styled.div<Iprops>`
         background-color:#cfcfcfcf;
     }
     input[type="checkbox"]:checked{
-        background-color:${({color})=> color};
+        background-color:#54BF36;
     }
     input[type="checkbox"]::before{
         content:"";

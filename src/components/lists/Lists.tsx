@@ -1,33 +1,72 @@
-import React, { useState } from 'react'
+
 import { Actions, Card, Item, ListsStyled } from './Styled'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 
 
-interface IList {
-  List:{
-    todo:string,
-    id:string
-  }[]
+
+//url
+const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
+
+interface ITodo {
+  todo:string,
+  id:string
 }
-const Lists:React.FC<IList> = ({List}) => {
+const Lists:React.FC = () => {
+
   //States
-  const [Color, setColor] = useState<string>("")
-  const [Check, setCheck] = useState(true)
+  const[TodoData, setTodoData] = useState<ITodo[]>([]);
+  const[ErrMsg, setErrMsg] = useState<string>("");
+  
 
 
 
 
-  //handle done Task
-  const handleDoneTask = (e:React.ChangeEvent<HTMLInputElement>, i:number)=>{
-    if(Number(e.target.id) === i){
-      console.log( e.target.id)
-      localStorage.setItem(e.target.id, JSON.stringify(Check))
-      if(JSON.parse(localStorage.getItem(e.target.id) as string) === true){
-        setColor("#54BF36")
-      }
-      setCheck(!Check)
-    }
+  //Error Msg
+const ErrorNotice = () =>{
+  toast.error(ErrMsg, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+}
+
+
+
+    //get TodoData
+  const getTodo = ()=>{
+    axios.get(URL).then((res)=>{
+      setTodoData(res.data)
+    }).catch((err)=>{
+      ErrorNotice()
+      setErrMsg(err)
+    })
   }
+  
+  
+  useEffect(()=>{
+    getTodo()
+  },[])
+  
+  
+  //Reverse Array Algorithm
+  
+  const ReverseArray = (TodoData: ITodo[])=>{
+    let Sorted = [];
+    for(let i = TodoData.length -1; i >= 0; i--){
+      Sorted.push(TodoData[i])
+    }
+    return Sorted
+  }
+  const SortedData = ReverseArray(TodoData)
+
+
 
   //handle deleteTodo
   const handleDeleteTodo = (id:string)=>{
@@ -38,20 +77,21 @@ const Lists:React.FC<IList> = ({List}) => {
     console.log(err)
    })
   }
-console.log(List)
+
   return (
     <ListsStyled>
       {
-        List.map((c, i )=>(
+        SortedData.map((c, i )=>(
           <Card key={i}>
           <Item>{c.todo}</Item>
-            <Actions color={Color}>
+            <Actions>
               <img src="/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
-              <input type="checkbox" id={String(i)} onChange={(e)=>handleDoneTask(e,i)} />
+              <input type="checkbox" />
             </Actions>
           </Card>
         ))
       }
+      <ToastContainer />
     </ListsStyled>
   )
 }
