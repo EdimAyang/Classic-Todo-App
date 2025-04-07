@@ -23,11 +23,6 @@ const SignUP = () => {
 
 
 
-
-
-
-
-
     //set user details in localSate
 const handleLocalStorage = (User:object)=>{
     localStorage.setItem("user", JSON.stringify(User))

@@ -5,6 +5,7 @@ import Lists from '../../components/lists/Lists'
 import { HeadImg, Nav, TodoInputWrapper, TodoStyles } from './Styled'
 import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 //url
 const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
@@ -12,6 +13,7 @@ const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
 
 const Todo:React.FC = () => {
 //States
+   const navigate = useNavigate()
   const [TodoValue, setTodoValue] = useState<string>("")
 
   //Succes Msg
@@ -49,10 +51,16 @@ const Todo:React.FC = () => {
       
     }
     
+
+     //navigate
+ const handleNavToLogIn = ()=>{
+  navigate("/login")
+}
   return (
     <TodoStyles>
       <Nav>
         <span>Hello <h1>{data.name}</h1></span>
+        <h4 onClick={handleNavToLogIn}>Log Out</h4>
       </Nav>
       <HeadImg src="/assets/To do list-bro.png" alt="" />
       <TodoInputWrapper>
