@@ -6,6 +6,7 @@ import Splash from "./pages/splashScreen/Splash"
 import Login from "./pages/login/Login"
 import Todo from "./pages/todo/Todo"
 import SignUp from "./pages/signUP/SignUp"
+import NotFound from "./pages/notFound/NotFound"
 
 
 
@@ -33,6 +34,10 @@ function App() {
     {
       path:"signUp",
       element:<SignUp />
+    },
+    {
+      path:"*",
+      element:<NotFound />
     }
   ])
   
