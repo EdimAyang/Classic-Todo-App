@@ -62,7 +62,7 @@ const Todo:React.FC = () => {
         <span>Hello <h1>{data.name}</h1></span>
         <h4 onClick={handleNavToLogIn}>Log Out</h4>
       </Nav>
-      <HeadImg src="/assets/To do list-bro.png" alt="" />
+      <HeadImg src="/To do list-bro.png" alt="" />
       <TodoInputWrapper>
         <input type="text" value={TodoValue} placeholder='Enter TODO' onChange={e=>setTodoValue(e.target.value)}/>
         <ButtonS children='ADD!' size='20' color2='#ffff' color='#54BF36' onClick={handleAddTodo}/>

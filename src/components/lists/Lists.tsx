@@ -85,7 +85,7 @@ const ErrorNotice = () =>{
           <Card key={i}>
           <Item>{c.todo}</Item>
             <Actions>
-              <img src="/assets/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
+              <img src="/delete.png" alt="trash" onClick={()=>handleDeleteTodo(c.id)} />
               <input type="checkbox" />
             </Actions>
           </Card>

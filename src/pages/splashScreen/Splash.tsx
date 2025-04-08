@@ -28,7 +28,7 @@ let data = JSON.parse(localStorage.getItem("user") as string)
 
   return (
     <SplashStyles>
-      <img src="/assets/To do list-amico.png" alt="" />
+      <img src="/To do list-amico.png" alt="" />
 
      <ButtonS children='Get Started' onClick={handleNavigate}/>
     </SplashStyles>
