@@ -1,5 +1,5 @@
 # server
-server
+.server/
 
 #environmental variable
 .env
