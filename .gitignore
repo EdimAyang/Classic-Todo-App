@@ -1,3 +1,9 @@
+# server
+server
+
+#environmental variable
+.env
+
 # Logs
 logs
 *.log
@@ -24,8 +30,3 @@ dist-ssr
 *.sw?
 .qodo
 
-# server
-server
-
-#environmental variable
-.env
