@@ -1,76 +1,93 @@
+import { ButtonS } from "../../components/button/Button";
+import Lists from "../../components/lists/Lists";
+import { HeadImg, Nav, TodoInputWrapper, TodoStyles } from "./Styled";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ApiKeys } from "../../network/axios/QueryKeys";
+import { axiosInsatnce } from "../../network/axios/axios";
+import { ApiResponse } from "../../network/axios/Api.Response";
+import { Api_Routes } from "../../network/axios/Api.Routes";
+import { toast } from "react-toastify";
+import { ITodoPayload } from "../../interface/Interfaces";
 
-import axios from 'axios'
-import { ButtonS } from '../../components/button/Button'
-import Lists from '../../components/lists/Lists'
-import { HeadImg, Nav, TodoInputWrapper, TodoStyles } from './Styled'
-import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+const Todo: React.FC = () => {
+  //States
+  const navigate = useNavigate();
+  const [TodoValue, setTodoValue] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const queryClient = useQueryClient();
 
-//url
-const URL =  "https://66e184f5c831c8811b554ff6.mockapi.io/Todo";
+  // get user name
+  let User = JSON.parse(localStorage.getItem("user") as string);
 
-
-const Todo:React.FC = () => {
-//States
-   const navigate = useNavigate()
-  const [TodoValue, setTodoValue] = useState<string>("")
-
-  //Succes Msg
-  const SuccessNotice = () =>{
-    toast.success("Todo Added", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-  }
-    // get user name
-    let data = JSON.parse(localStorage.getItem("user") as string) 
-   
-     //handle Add Todo
-    const handleAddTodo =()=>{
-      if(!TodoValue)return
-      const newTodo = {
-        todo:TodoValue
+  //handle Add Todo
+  const CreateTodo = async (newTodo: ITodoPayload) => {
+    if (!TodoValue) return;
+    setIsLoading(true)
+    try {
+      const res = await axiosInsatnce.post<ApiResponse>(
+        `${Api_Routes.todo}`,
+        newTodo
+      );
+      if (res.status === 201) {
+        // console.log(res.data);
+        toast.success(`${res.data.message}`);
       }
-     axios.post(URL,newTodo).then((res)=>{
-      console.log(res.data)
-      SuccessNotice()
-      setTodoValue("")
-      setTimeout(()=>{
-        window.location.reload()
-      },2000)
-     }).catch((err)=>{
-      console.log(err)
-     })
-      
+    } catch (error:any) {
+      toast.error(`${error.message}`);
+    } finally {
+      setIsLoading(false)
     }
-    
+  };
 
-     //navigate
- const handleNavToLogIn = ()=>{
-  navigate("/login")
-}
+
+
+
+  const AddTodo = useMutation({
+    mutationFn: () => CreateTodo({ todo: TodoValue, isDone:false}),
+    onSuccess: () => {
+      setTodoValue('')
+      queryClient.invalidateQueries({ queryKey: [ApiKeys.todo] });
+    },
+  });
+
+  const handleCreateTodo = ()=>{
+    AddTodo.mutate()
+  }
+  //navigate
+  const handleNavToLogIn = () => {
+    navigate("/login");
+  };
+
   return (
     <TodoStyles>
       <Nav>
-        <span>Hello <h1>{data.name}</h1></span>
+        <span>
+          Hello <h1>{User.name}</h1>
+        </span>
         <h4 onClick={handleNavToLogIn}>Log Out</h4>
       </Nav>
       <HeadImg src="/To do list-bro.png" alt="" />
       <TodoInputWrapper>
-        <input type="text" value={TodoValue} placeholder='Enter TODO' onChange={e=>setTodoValue(e.target.value)}/>
-        <ButtonS children='ADD!' size='20' color2='#ffff' color='#54BF36' onClick={handleAddTodo}/>
+        <input
+          type="text"
+          value={TodoValue}
+          placeholder="Enter TODO"
+          onChange={(e) => setTodoValue(e.target.value)}
+        />
+        <ButtonS
+          children="ADD!"
+          size="20"
+          color2="#ffff"
+          color="#54BF36"
+          onClick={handleCreateTodo}
+          disabled={isLoading}
+        />
       </TodoInputWrapper>
       <Lists />
-      <ToastContainer />
     </TodoStyles>
-  )
-}
+  );
+};
 
-export default Todo
+export default Todo;
