@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 .qodo
 
+# server
+server
+
+#environmental variable
+.env
