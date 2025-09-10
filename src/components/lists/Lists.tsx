@@ -59,7 +59,7 @@ const Lists: React.FC = () => {
         toast.success(`${res.data.message}`);
       }
     } catch (error) {
-      toast.error("Something went Wrong!");
+      toast.error("Something went Wrong !");
     } finally {
     }
   };
