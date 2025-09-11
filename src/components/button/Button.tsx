@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 interface BTNprops {
     children:string,
-    size?:string,
+    size?:string
     color?:string,
     color2?:string
 }
